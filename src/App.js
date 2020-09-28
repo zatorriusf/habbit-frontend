@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, {useState} from 'react';
+import './App.scss';
+import Header from './cmpnts/Header'
+import Habits from './pages/Habits'
 function App() {
+  const [loggedinState, setLoggedinState] = useState(false);
+  const handleLogin = (bool) =>{
+    setLoggedinState(bool);
+  }
+  const habits = [{
+    title : "Test",
+    desc : "Test description",
+    streak : 2
+  },
+  {
+    title : "Test no streak badge",
+    desc : "Test description",
+    streak : 0
+  }]
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header 
+      loggedinState = {loggedinState}
+      handleLogin = {handleLogin}/>
+      <main>
+        {!loggedinState && <h2>Hi</h2>}
+        {loggedinState && <Habits habits={habits}/>}
+      </main>
     </div>
   );
 }
