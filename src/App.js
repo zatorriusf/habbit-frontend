@@ -20,7 +20,7 @@ function App() {
     title : "Test no streak badge",
     desc : "Test description",
     streak : 0,
-    frequency : "daily"
+    frequency : "monthly"
   }];
   return (
     <div className="App">

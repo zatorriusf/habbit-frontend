@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form ,Row} from "react-bootstrap";
 
 const HabitForm = ({ _id, title, desc, frequency,cancelAction }) => {
+
   return (
     <div className="p-3">
       <h3>New Habit</h3>
@@ -21,24 +22,28 @@ const HabitForm = ({ _id, title, desc, frequency,cancelAction }) => {
             type="radio"
             name="habitFrequencyRaidos"
             id="habitFrequencyRaidos_daily"
+            checked={frequency === 'daily'}
           />
           <Form.Check
             label="weekly"
             type="radio"
             name="habitFrequencyRaidos"
             id="habitFrequencyRaidos_weekly"
+            checked={frequency === 'weekly'}
           />
           <Form.Check
             label="bi-weekly"
             type="radio"
             name="habitFrequencyRaidos"
             id="habitFrequencyRaidos_bi-weekly"
+            checked={frequency === 'bi-weekly'}
           />
           <Form.Check
             label="monthly"
             type="radio"
             name="habitFrequencyRaidos"
             id="habitFrequencyRaidos_monthly"
+            checked={frequency === 'monthly'}
           />
         </Form.Group>
         <Row className="d-flex justify-content-between p-3">
