@@ -12,13 +12,15 @@ function App() {
     _id: 1,
     title : "Test",
     desc : "Test description",
-    streak : 2
+    streak : 2,
+    frequency : "daily"
   },
   {
     _id: 2,
     title : "Test no streak badge",
     desc : "Test description",
-    streak : 0
+    streak : 0,
+    frequency : "daily"
   }];
   return (
     <div className="App">

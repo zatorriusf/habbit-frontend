@@ -1,13 +1,19 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Habit from '../cmpnts/Habit';
-import {Button,Container, Row} from 'react-bootstrap';
+import {Button,Container,Modal, Row} from 'react-bootstrap';
+import HabitForm from "../cmpnts/HabitForm"
 
 const Habits = ({habits}) => {
-    return (
+    const [showModal, setShowModal] = useState(false);
+    const handleHabitModal =() =>{
+        setShowModal(!showModal);
+    }
+    
+    return (<>
         <Container>
             <Row className="mt-3 justify-content-between">
           <h2>Habits</h2>
-          <Button variant="info">New Habit</Button>
+          <Button variant="info" onClick={handleHabitModal}>New Habit</Button>
         </Row>
         <Row>
           <h3>Track today</h3>
@@ -18,15 +24,19 @@ const Habits = ({habits}) => {
           md={2}
           lg={4}
           xl={4}
-          className="my-3 py-3 overflow-auto d-flex flex-nowrap">
+          className="ml-3 p-3 overflow-auto d-flex flex-nowrap">
               {habits.map(habit =>{
                   return <Habit title={habit.title}
                   desc={habit.desc}
-                  streak={habit.streak} />
+                  streak={habit.streak} 
+                  id={habit._id}
+                  handleHabitModal={handleHabitModal}/>
               })}
         </Row>
         
         </Container>
+        <Modal show={showModal} onHide = {handleHabitModal}><HabitForm cancelAction={handleHabitModal}/></Modal>
+        </>
     )
 }
 

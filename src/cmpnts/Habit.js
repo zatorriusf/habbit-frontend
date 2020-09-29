@@ -1,6 +1,6 @@
 import React from 'react'
 import {Badge,Button,Card,Col} from 'react-bootstrap'
-const Habit = ({title,desc,streak}) => {
+const Habit = ({title,desc,streak,handleHabitModal,frequency,_id}) => {
     return (
         <Col xs={12} sm={12} md={6} lg={4} xl={3}>
             <Card className="shadow-sm">
@@ -17,7 +17,7 @@ const Habit = ({title,desc,streak}) => {
               </Card.Body>
               <Card.Footer className="d-flex justify-content-between">
                 <Button variant="outline-info">Complete</Button>
-                <Button variant="outline-warning">Edit Habit</Button>
+                <Button variant="outline-warning" onClick={()=>handleHabitModal()}>Edit Habit</Button>
               </Card.Footer>
             </Card>
           </Col>
