@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Habit from "../cmpnts/Habit";
 import { Button, Container, Modal, Row } from "react-bootstrap";
+import {v4 as uuidv4} from 'uuid';
 import HabitForm from "../cmpnts/HabitForm";
 
 const Habits = ({ habits }) => {
@@ -16,7 +17,25 @@ const Habits = ({ habits }) => {
   const viewHabitDetails = (id) =>{
     const selectedHabit = habits.find(habit => habit._id === id);
     setHabitDetails(selectedHabit);
-    console.log(selectedHabit.title)
+  }
+  const saveHabit = ({_id,title,desc,frequency}) =>{
+    if(_id){
+      const updateHabitIndex = habits.findIndex(habit => habit._id === _id);
+      habits[updateHabitIndex].title = title;
+      habits[updateHabitIndex].desc = desc;
+      habits[updateHabitIndex].frequency = frequency;
+      //send update to database
+    } else {
+      const newHabit = {
+        _id : uuidv4(),
+        title : title,
+        desc : desc,
+        frequency : frequency,
+        streak : 0
+      }
+      habits.push(newHabit);
+    }
+    closeHabitModal();
   }
 
   return (
@@ -56,12 +75,13 @@ const Habits = ({ habits }) => {
         </Row>
       </Container>
       <Modal show={showModal} onHide={closeHabitModal}>
-        {!habitDetails && <HabitForm cancelAction={closeHabitModal} />}
+        {!habitDetails && <HabitForm cancelAction={closeHabitModal} saveHabit={saveHabit}/>}
         {habitDetails  && <HabitForm cancelAction={closeHabitModal}
                                      title={habitDetails.title}
                                      desc ={habitDetails.desc}
                                      frequency = {habitDetails.frequency} 
-                                     _id={habitDetails._id}/>}
+                                     _id={habitDetails._id}
+                                     saveHabit={saveHabit}/>}
       </Modal>
     </>
   );

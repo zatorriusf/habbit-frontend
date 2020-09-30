@@ -2,7 +2,6 @@ import React from 'react'
 import {Badge,Button,Card,Col} from 'react-bootstrap'
 const Habit = ({title,desc,streak,viewHabitDetails,handleHabitModal,frequency,_id}) => {
     const launchEditHabit = () =>{
-      console.log(_id)
       viewHabitDetails(_id);
       handleHabitModal();
     }
@@ -12,7 +11,7 @@ const Habit = ({title,desc,streak,viewHabitDetails,handleHabitModal,frequency,_i
               <Card.Header>{title}</Card.Header>
               <Card.Body>
                 <Card.Text>
-                  {desc.concat(_id)}
+                  {desc}
                 </Card.Text>
                 <footer className="footer">
                   {streak !== 0 && <Badge pill variant="info">
