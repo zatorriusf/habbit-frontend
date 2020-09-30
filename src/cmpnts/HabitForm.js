@@ -41,6 +41,7 @@ const HabitForm = ({ _id, title, desc, frequency,cancelAction,saveHabit }) => {
             id={`habitFrequencyRaidos_${freq}`}
             defaultChecked={frequency === freq}
             onChange={() => setSelectedFrequency(freq)}
+            key={freq}
           />
             })
           }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Navbar, Nav } from "react-bootstrap";
-import LoginForm from './LoginForm'
+import AuthForm from './AuthForm'
 
 const Header = ({ loggedinState, handleLogin }) => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const handleModal =() =>{
-      setShowLoginModal(!showLoginModal);
+  const [authMode, setAuthMode] = useState(null);
+  const handleModal =(mode) =>{
+    setAuthMode(mode);
   }
   return (<>
     <Navbar
@@ -20,9 +20,9 @@ const Header = ({ loggedinState, handleLogin }) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
           {!loggedinState && (
-            <Nav.Link onClick={handleModal}>Sign In</Nav.Link>
+            <Nav.Link onClick={() => handleModal('login')}>Sign In</Nav.Link>
           )}
-          <Nav.Link>Home</Nav.Link>
+          {!loggedinState &&<Nav.Link onClick={() => handleModal('register')}>Register</Nav.Link>}
           {loggedinState && <Nav.Link className="active">Habits</Nav.Link>}
           {loggedinState && (
             <Nav.Link onClick={() => handleLogin(false)}>Logout</Nav.Link>
@@ -30,7 +30,8 @@ const Header = ({ loggedinState, handleLogin }) => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    <Modal show = {showLoginModal} onHide = {handleModal}><LoginForm handleLogin={handleLogin} handleModal={handleModal}/></Modal>
+    <Modal show = {authMode === 'login'} onHide = {() => handleModal(null)}><AuthForm handleAuth={handleLogin} handleModal={handleModal} confirmText = 'Sign In'/></Modal>
+    <Modal show = {authMode === 'register'} onHide = {() => handleModal(null)}><AuthForm handleAuth={handleLogin} handleModal={handleModal} confirmText = 'Create Account'/></Modal>
     </>
   );
 };

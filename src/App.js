@@ -5,8 +5,12 @@ import Habits from './pages/Habits';
 import Home from './pages/Home'
 function App() {
   const [loggedinState, setLoggedinState] = useState(false);
-  const handleLogin = (bool) =>{
-    setLoggedinState(bool);
+  const handleLogin = (loginInfo) =>{
+    console.log(loginInfo)
+    setLoggedinState(true);
+  }
+  const handleRegister = (authInfo) =>{
+    console.log(authInfo);
   }
   const habits = [{
     _id: 1,
@@ -26,7 +30,8 @@ function App() {
     <div className="App">
       <Header 
       loggedinState = {loggedinState}
-      handleLogin = {handleLogin}/>
+      handleLogin = {handleLogin}
+      handleRegister = {handleRegister}/>
       <main>
         {!loggedinState && <Home />}
         {loggedinState && <Habits habits={habits}/>}
