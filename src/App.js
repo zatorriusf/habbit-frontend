@@ -3,14 +3,25 @@ import './App.scss';
 import Header from './cmpnts/Header';
 import Habits from './pages/Habits';
 import Home from './pages/Home'
+import {performLoginRequest,performRegisterationRequest} from './helpers/AuthHelpers';
 function App() {
-  const [loggedinState, setLoggedinState] = useState(false);
-  const handleLogin = (loginInfo) =>{
-    console.log(loginInfo)
-    setLoggedinState(true);
+  const [loggedInToken, setLoggedInToken] = useState(localStorage.getItem('token'));
+  const handleLogin = async (loginInfo) =>{
+    const logInSuccess = await performLoginRequest(loginInfo);
+    if(logInSuccess){
+      localStorage.setItem('token',logInSuccess.token);
+      setLoggedInToken(logInSuccess.token);
+    }
+  };
+  const handleLogout = () =>{
+    localStorage.removeItem('token');
+    setLoggedInToken();
   }
-  const handleRegister = (authInfo) =>{
-    console.log(authInfo);
+  const handleRegisterandLogin = async (authInfo) =>{
+    const registrationSuccess = await performRegisterationRequest(authInfo);
+    if(registrationSuccess){
+      handleLogin(authInfo);
+    }
   }
   const habits = [{
     _id: 1,
@@ -29,12 +40,13 @@ function App() {
   return (
     <div className="App">
       <Header 
-      loggedinState = {loggedinState}
+      loggedinState = {loggedInToken}
       handleLogin = {handleLogin}
-      handleRegister = {handleRegister}/>
+      handleRegisterandLogin = {handleRegisterandLogin}
+      handleLogout = {handleLogout}/>
       <main>
-        {!loggedinState && <Home />}
-        {loggedinState && <Habits habits={habits}/>}
+        {!loggedInToken && <Home />}
+        {loggedInToken && <Habits habits={habits}/>}
       </main>
     </div>
   );
