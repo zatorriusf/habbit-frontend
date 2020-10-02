@@ -11,7 +11,7 @@ const HabitForm = ({ _id, title, desc, frequency,cancelAction,saveHabit }) => {
   const frequencyOptions = ["daily","weekly","bi-weekly","monthly"];
   const saveHabitForm = () =>{
     const habit = {
-      _id : _id || null,
+      _id : _id,
       title : titleRef.current.value,
       desc : descRef.current.value,
       frequency : formFrequency
