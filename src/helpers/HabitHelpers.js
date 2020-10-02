@@ -15,4 +15,9 @@ const fetchHabits = async () =>{
     return fetchedHabits.data;
 }
 
+const saveNewHabit = async (newHabit) =>{
+    const savedHabit = await habitAxios.post(newHabit);
+    return savedHabit.data;
+};
 module.exports.fetchHabits = fetchHabits;
+module.exports.saveNewHabit = saveNewHabit;

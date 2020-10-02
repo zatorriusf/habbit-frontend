@@ -3,8 +3,9 @@ import Habit from "../cmpnts/Habit";
 import { Button, Container, Modal, Row } from "react-bootstrap";
 import {v4 as uuidv4} from 'uuid';
 import HabitForm from "../cmpnts/HabitForm";
+import {saveNewHabit} from "../helpers/HabitHelpers";
 
-const Habits = ({ habits }) => {
+const Habits = ({ habits,setHabits }) => {
   const [showModal, setShowModal] = useState(false);
   const [habitDetails, setHabitDetails] = useState(null);
   const openHabitModal = () => {
@@ -18,6 +19,11 @@ const Habits = ({ habits }) => {
     const selectedHabit = habits.find(habit => habit._id === id);
     setHabitDetails(selectedHabit);
   }
+  const createNewHabit = async (habitObj) =>{
+    const newHabit = await saveNewHabit(habitObj);
+    setHabits([...habits,newHabit]);
+    closeHabitModal();
+  };
   const saveHabit = ({_id,title,desc,frequency}) =>{
     if(_id){
       const updateHabitIndex = habits.findIndex(habit => habit._id === _id);
@@ -75,7 +81,7 @@ const Habits = ({ habits }) => {
         </Row>
       </Container>
       <Modal show={showModal} onHide={closeHabitModal}>
-        {!habitDetails && <HabitForm cancelAction={closeHabitModal} saveHabit={saveHabit}/>}
+        {!habitDetails && <HabitForm cancelAction={closeHabitModal} saveHabit={createNewHabit}/>}
         {habitDetails  && <HabitForm cancelAction={closeHabitModal}
                                      title={habitDetails.title}
                                      desc ={habitDetails.desc}

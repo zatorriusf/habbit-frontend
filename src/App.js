@@ -47,7 +47,7 @@ function App() {
       />
       <main>
         {!loggedInToken && <Home />}
-        {loggedInToken && <Habits habits={habits} />}
+        {loggedInToken && <Habits habits={habits} setHabits={setHabits}/>}
       </main>
     </div>
   );
