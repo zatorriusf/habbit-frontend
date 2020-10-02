@@ -61,7 +61,7 @@ const Habits = ({ habits, setHabits }) => {
               <Habit
                 title={habit.title}
                 desc={habit.desc}
-                streak={habit.streak}
+                streak={habit.currentStreak}
                 _id={habit._id}
                 key={habit._id}
                 handleHabitModal={openHabitModal}
