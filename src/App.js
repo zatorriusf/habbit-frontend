@@ -15,7 +15,6 @@ function App() {
   const [habits, setHabits] = useState([]);
   const getHabits = async () => {
     const fetchedHabits = await fetchHabits();
-    console.log(fetchedHabits);
     setHabits(fetchedHabits);
   };
   useEffect(getHabits, []);
