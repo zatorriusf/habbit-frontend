@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Habit from "../cmpnts/Habit";
 import { Button, Container, Modal, Row } from "react-bootstrap";
 import HabitForm from "../cmpnts/HabitForm";
-import { saveNewHabit,updateExistingHabit } from "../helpers/HabitHelpers";
+import { saveNewHabit,updateExistingHabit,trackHabit } from "../helpers/HabitHelpers";
 
 const Habits = ({ habits, setHabits }) => {
   const [showModal, setShowModal] = useState(false);
@@ -28,9 +28,7 @@ const Habits = ({ habits, setHabits }) => {
     if(savedHabit){
       let updatingApplicationHabits = [...habits];
     const updateHabitIndex = habits.findIndex((habit) => habit._id === existinghabit._id);
-    updatingApplicationHabits[updateHabitIndex].title = existinghabit.title;
-    updatingApplicationHabits[updateHabitIndex].desc = existinghabit.desc;
-    updatingApplicationHabits[updateHabitIndex].frequency = existinghabit.frequency;
+    updatingApplicationHabits[updateHabitIndex]= existinghabit;
     }
     
     closeHabitModal();
@@ -66,6 +64,7 @@ const Habits = ({ habits, setHabits }) => {
                 key={habit._id}
                 handleHabitModal={openHabitModal}
                 viewHabitDetails={viewHabitDetails}
+                trackHabit = {trackHabit}
               />
             );
           })}

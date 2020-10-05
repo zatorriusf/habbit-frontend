@@ -35,6 +35,13 @@ const updateExistingHabit = async ({_id,title,frequency,desc}) =>{
     const updatedHabit = await habitAxios.patch('',existingHabit);
     return updatedHabit.data;
 };
+
+const trackHabit = async (_id) =>{
+    const habit = {habitId : _id};
+    const trackedHabit = await habitAxios.patch('/track',habit);
+    return trackedHabit.data;
+}
 module.exports.fetchHabits = fetchHabits;
 module.exports.saveNewHabit = saveNewHabit;
-module.exports.updateExistingHabit = updateExistingHabit
+module.exports.updateExistingHabit = updateExistingHabit;
+module.exports.trackHabit = trackHabit;
