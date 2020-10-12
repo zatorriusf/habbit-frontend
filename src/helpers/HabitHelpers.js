@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const habbitualURLBase = `https://habbitual.herokuapp.com/api/habits/`;
+const habbitualURLBase =process.env.REACT_APP_HABITURL;
 const token = localStorage.getItem('token');
 const habitAxios = axios.create({
     baseURL : habbitualURLBase,

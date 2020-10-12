@@ -1,13 +1,21 @@
 const axios = require('axios');
 
-const habbitualURLBase = `https://habbitual.herokuapp.com/api/user/`
+
+const habbitualAuthAxios = axios.create({
+    baseURL : process.env.REACT_APP_AUTHURL,
+    headers: {
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Origin, Content-Type"
+      }
+});
 
 const performLoginRequest = async (userObject) =>{
     if(!userObject.email || !userObject.password){
         return;
     }
     try{
-        const res = await axios.post(habbitualURLBase.concat('login'),userObject, { crossdomain: true });
+        const res = await habbitualAuthAxios.post('login',userObject, { crossdomain: true });
         return res.data;
     } catch(err){
         console.error(err);
@@ -18,7 +26,7 @@ const performRegisterationRequest = async (userObject) =>{
         return;
     }
     try{
-        const res = await axios.post(habbitualURLBase.concat('register'),userObject, { crossdomain: true });
+        const res = await habbitualAuthAxios.post('register',userObject, { crossdomain: true });
         return res.data;
     } catch(err){
         console.error(err);
