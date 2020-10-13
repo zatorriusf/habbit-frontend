@@ -17,7 +17,7 @@ function App() {
     const fetchedHabits = await fetchHabits();
     setHabits(fetchedHabits);
   };
-  useEffect(getHabits, []);
+  useEffect( () =>{getHabits()});
   const handleLogin = async (loginInfo) => {
     const logInSuccess = await performLoginRequest(loginInfo);
     if (logInSuccess) {
