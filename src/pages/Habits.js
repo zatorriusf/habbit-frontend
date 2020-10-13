@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import HabitList from "../cmpnts/HabitList";
 import { Button, Container, Modal, Row } from "react-bootstrap";
 import HabitForm from "../cmpnts/HabitForm";
-import { fetchHabits,saveNewHabit,updateExistingHabit} from "../helpers/HabitHelpers";
+import {
+  fetchHabits,
+  saveNewHabit,
+  updateExistingHabit,
+} from "../helpers/HabitHelpers";
 
 const Habits = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,7 +16,9 @@ const Habits = () => {
     const fetchedHabits = await fetchHabits();
     setHabits(fetchedHabits);
   };
-  useEffect( () =>{getHabits()},[]);
+  useEffect(() => {
+    getHabits();
+  }, []);
   const openHabitModal = () => {
     setShowModal(true);
   };
@@ -31,12 +37,14 @@ const Habits = () => {
   };
   const saveHabit = async (existinghabit) => {
     const savedHabit = await updateExistingHabit(existinghabit);
-    if(savedHabit){
+    if (savedHabit) {
       let updatingApplicationHabits = [...habits];
-    const updateHabitIndex = habits.findIndex((habit) => habit._id === existinghabit._id);
-    updatingApplicationHabits[updateHabitIndex]= existinghabit;
+      const updateHabitIndex = habits.findIndex(
+        (habit) => habit._id === existinghabit._id
+      );
+      updatingApplicationHabits[updateHabitIndex] = existinghabit;
     }
-    
+
     closeHabitModal();
   };
 
@@ -60,12 +68,12 @@ const Habits = () => {
           xl={4}
           className="ml-3 p-3 overflow-auto d-flex flex-nowrap"
         >
-          {habits.map((habit) => {
-            return (
-              <HabitList habits={habits} setHabits={setHabits} viewHabitDetails={viewHabitDetails} openHabitModal={openHabitModal}
-              />
-            );
-          })}
+          <HabitList
+            habits={habits}
+            setHabits={setHabits}
+            viewHabitDetails={viewHabitDetails}
+            openHabitModal={openHabitModal}
+          />
         </Row>
       </Container>
       <Modal show={showModal} onHide={closeHabitModal}>
