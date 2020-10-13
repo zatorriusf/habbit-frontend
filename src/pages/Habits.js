@@ -62,6 +62,8 @@ const Habits = ({ habits, setHabits }) => {
                 streak={habit.currentStreak}
                 _id={habit._id}
                 key={habit._id}
+                frequency={habit.frequency}
+                lastActivity={habit.lastActivity || null}
                 handleHabitModal={openHabitModal}
                 viewHabitDetails={viewHabitDetails}
                 trackHabit = {trackHabit}
