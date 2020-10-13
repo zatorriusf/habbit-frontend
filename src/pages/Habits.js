@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import Habit from "../cmpnts/Habit";
+import React, { useEffect, useState } from "react";
+import HabitList from "../cmpnts/HabitList";
 import { Button, Container, Modal, Row } from "react-bootstrap";
 import HabitForm from "../cmpnts/HabitForm";
-import { saveNewHabit,updateExistingHabit,trackHabit } from "../helpers/HabitHelpers";
+import { fetchHabits,saveNewHabit,updateExistingHabit} from "../helpers/HabitHelpers";
 
-const Habits = ({ habits, setHabits }) => {
+const Habits = () => {
   const [showModal, setShowModal] = useState(false);
   const [habitDetails, setHabitDetails] = useState(null);
+  const [habits, setHabits] = useState([]);
+  const getHabits = async () => {
+    const fetchedHabits = await fetchHabits();
+    setHabits(fetchedHabits);
+  };
+  useEffect( () =>{getHabits()},[]);
   const openHabitModal = () => {
     setShowModal(true);
   };
@@ -56,17 +62,7 @@ const Habits = ({ habits, setHabits }) => {
         >
           {habits.map((habit) => {
             return (
-              <Habit
-                title={habit.title}
-                desc={habit.desc}
-                streak={habit.currentStreak}
-                _id={habit._id}
-                key={habit._id}
-                frequency={habit.frequency}
-                lastActivity={habit.lastActivity || null}
-                handleHabitModal={openHabitModal}
-                viewHabitDetails={viewHabitDetails}
-                trackHabit = {trackHabit}
+              <HabitList habits={habits} setHabits={setHabits} viewHabitDetails={viewHabitDetails} openHabitModal={openHabitModal}
               />
             );
           })}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import Header from "./cmpnts/Header";
 import Habits from "./pages/Habits";
@@ -7,17 +7,12 @@ import {
   performLoginRequest,
   performRegisterationRequest,
 } from "./helpers/AuthHelpers";
-import { fetchHabits } from "./helpers/HabitHelpers";
+
 function App() {
   const [loggedInToken, setLoggedInToken] = useState(
     localStorage.getItem("token")
   );
-  const [habits, setHabits] = useState([]);
-  const getHabits = async () => {
-    const fetchedHabits = await fetchHabits();
-    setHabits(fetchedHabits);
-  };
-  useEffect( () =>{getHabits()},[]);
+
   const handleLogin = async (loginInfo) => {
     const logInSuccess = await performLoginRequest(loginInfo);
     if (logInSuccess) {
@@ -46,7 +41,7 @@ function App() {
       />
       <main>
         {!loggedInToken && <Home />}
-        {loggedInToken && <Habits habits={habits} setHabits={setHabits}/>}
+        {loggedInToken && <Habits />}
       </main>
     </div>
   );
