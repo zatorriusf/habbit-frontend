@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HabitList from "../cmpnts/HabitList";
-import { Button, Container, Modal, Row } from "react-bootstrap";
+import { Button, Container, Modal, Row, Spinner } from "react-bootstrap";
 import HabitForm from "../cmpnts/HabitForm";
 import {
   fetchHabits,
@@ -10,11 +10,14 @@ import {
 
 const Habits = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [habitDetails, setHabitDetails] = useState(null);
   const [habits, setHabits] = useState([]);
   const getHabits = async () => {
+    setIsLoading(true);
     const fetchedHabits = await fetchHabits();
     setHabits(fetchedHabits);
+    setIsLoading(false);
   };
   useEffect(() => {
     getHabits();
@@ -50,32 +53,39 @@ const Habits = () => {
 
   return (
     <>
-      <Container>
-        <Row className="mt-3 justify-content-between">
-          <h2>Habits</h2>
-          <Button variant="info" onClick={openHabitModal}>
-            New Habit
-          </Button>
-        </Row>
-        <Row>
-          <h3>Track today</h3>
-        </Row>
-        <Row
-          xs={2}
-          sm={2}
-          md={2}
-          lg={4}
-          xl={4}
-          className="ml-3 p-3 overflow-auto d-flex flex-nowrap"
-        >
-          <HabitList
-            habits={habits}
-            setHabits={setHabits}
-            viewHabitDetails={viewHabitDetails}
-            openHabitModal={openHabitModal}
-          />
-        </Row>
-      </Container>
+      {isLoading && (<div className='d-flex justify-content-center'>
+        <Spinner animation="border" role="loading" variant='info'>
+          <span className="sr-only">Loading...</span>
+        </Spinner></div>
+      )}
+      {!isLoading && (
+        <Container>
+          <Row className="mt-3 justify-content-between">
+            <h2>Habits</h2>
+            <Button variant="info" onClick={openHabitModal}>
+              New Habit
+            </Button>
+          </Row>
+          <Row>
+            <h3>Track your tasks</h3>
+          </Row>
+          <Row
+            xs={2}
+            sm={2}
+            md={2}
+            lg={4}
+            xl={4}
+            className="ml-3 p-3 overflow-auto d-flex flex-nowrap"
+          >
+            <HabitList
+              habits={habits}
+              setHabits={setHabits}
+              viewHabitDetails={viewHabitDetails}
+              openHabitModal={openHabitModal}
+            />
+          </Row>
+        </Container>
+      )}
       <Modal show={showModal} onHide={closeHabitModal}>
         {!habitDetails && (
           <HabitForm
