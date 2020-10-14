@@ -56,13 +56,6 @@ const Habit = ({
         <Card.Header>{title}</Card.Header>
         <Card.Body>
           <Card.Text>{desc}</Card.Text>
-          <footer className="footer">
-            {streak !== 0 && (
-              <Badge pill variant="info">
-                Streak : {streak}
-              </Badge>
-            )}
-          </footer>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-between">
           <Button
