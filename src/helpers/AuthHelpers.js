@@ -32,5 +32,5 @@ const performRegisterationRequest = async (userObject) =>{
         console.error(err);
     }
 };
-module.exports.performLoginRequest = performLoginRequest;
-module.exports.performRegisterationRequest = performRegisterationRequest;
+exports.performLoginRequest = performLoginRequest;
+exports.performRegisterationRequest = performRegisterationRequest;
