@@ -3,6 +3,7 @@ import "./App.scss";
 import Header from "./cmpnts/Header";
 import Habits from "./pages/Habits";
 import Home from "./pages/Home";
+import Footer from "./cmpnts/Footer"
 import {
   performLoginRequest,
   performRegisterationRequest,
@@ -43,6 +44,7 @@ function App() {
         {!loggedInToken && <Home />}
         {loggedInToken && <Habits />}
       </main>
+      <Footer />
     </div>
   );
 }
