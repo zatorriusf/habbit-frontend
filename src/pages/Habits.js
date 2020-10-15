@@ -42,10 +42,11 @@ const Habits = () => {
     const savedHabit = await updateExistingHabit(existinghabit);
     if (savedHabit) {
       let updatingApplicationHabits = [...habits];
-      const updateHabitIndex = habits.findIndex(
+      const updateHabitIndex = updatingApplicationHabits.findIndex(
         (habit) => habit._id === existinghabit._id
       );
       updatingApplicationHabits[updateHabitIndex] = existinghabit;
+      setHabits(updatingApplicationHabits);
     }
 
     closeHabitModal();
